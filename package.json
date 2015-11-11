@@ -1,0 +1,25 @@
+{
+  "name": "polymer-redux",
+  "version": "0.0.0",
+  "description": "Play with polymer and redux",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/iknowcss/polymer-redux.git"
+  },
+  "keywords": [
+    "polymer",
+    "web",
+    "components",
+    "flux",
+    "redux"
+  ],
+  "author": "Cody Jenkins",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/iknowcss/polymer-redux/issues"
+  },
+  "homepage": "https://github.com/iknowcss/polymer-redux#readme"
+}
