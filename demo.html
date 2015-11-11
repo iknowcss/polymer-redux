@@ -1,19 +1,39 @@
 <!doctype html>
 <html lang="en">
 <head>
+  <link rel="shortcut icon" href="/static/img/p-logo-32.png">
   <script src="/bower_components/webcomponentsjs/webcomponents.min.js"></script>
-  <link rel="import" href="/bower_components/paper-input/paper-input.html">
+  <link rel="import" href="/src/js/component/name-input.html">
 </head>
 <body>
 
-  <form style="width: 400px">
-    <div>
-      <paper-input label="First name"></paper-input>
-    </div>
-    <div>
-      <paper-input label="Last name"></paper-input>
-    </div>
-  </form>
+  <dom-module id="page-demo">
+    <template>
+      <name-input
+        first-name="{{firstName}}"
+        last-name="{{lastName}}"
+      ></name-input>
+
+      <div>
+        Hello, {{firstName}} {{lastName}}!
+      </div>
+    </template>
+
+    <script>
+      Polymer({
+        is: 'page-demo',
+        properties: {
+          firstName: String,
+          lastName: String
+        }
+      });
+    </script>
+  </dom-module>
+
+  <page-demo
+    first-name="John"
+    last-name="Smith"
+  ></page-demo>
 
 </body>
 </html>

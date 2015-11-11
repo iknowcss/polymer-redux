@@ -1,0 +1,38 @@
+<link rel="import" href="/bower_components/paper-input/paper-input.html">
+
+<dom-module id="name-input">
+
+  <template>
+    <form style="width: 400px">
+      <div>
+        <paper-input
+          label="First name"
+          value="{{firstName}}"
+          ></paper-input>
+      </div>
+      <div>
+        <paper-input
+          label="Last name"
+          value="{{lastName}}"
+          ></paper-input>
+      </div>
+    </form>
+  </template>
+
+  <script>
+    Polymer({
+      is: 'name-input',
+      properties: {
+        firstName: {
+          type: String,
+          notify: true
+        },
+        lastName: {
+          type: String,
+          notify: true
+        }
+      }
+    });
+  </script>
+
+</dom-module>
