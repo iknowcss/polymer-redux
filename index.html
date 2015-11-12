@@ -4,19 +4,33 @@
   <!-- Favicon -->
   <link rel="shortcut icon" href="/static/img/p-logo-32.png">
 
-  <!-- Redux -->
+  <!-- Vendor -->
   <script src="/bower_components/redux/redux.js"></script>
+  <script src="/bower_components/lodash/index.js"></script>
 
   <!-- Web components -->
   <script src="/bower_components/webcomponentsjs/webcomponents.min.js"></script>
-  <link rel="import" href="/src/js/page/demo.html">
+  <link rel="import" href="/src/js/component/name-input.html">
 </head>
 <body>
 
-  <page-demo
+  <name-input
+    id="fullName"
     first-name="John"
     last-name="Smith"
-  ></page-demo>
+  ></name-input>
+
+  <script>
+    (function () {
+      var fullName = document.querySelector('#fullName');
+      _.each(fullName.properties, function (value, key) {
+        var kebabKey = _.kebabCase(key);
+        fullName.addEventListener(kebabKey + '-changed', function (e) {
+          console.log(key + ' changed: ', e.target[key]);
+        });
+      });
+    }());
+  </script>
 
 </body>
 </html>
