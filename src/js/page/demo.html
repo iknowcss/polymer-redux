@@ -3,18 +3,25 @@
 <dom-module id="page-demo">
   <template>
     <name-input
-      first-name="{{firstName}}"
-      last-name="{{lastName}}"
-      ></name-input>
+      id="fullName"
+      first-name="[[firstName]]"
+      last-name="[[lastName]]"
+    ></name-input>
 
     <div>
-      Hello, {{firstName}} {{lastName}}!
+      <!--Hello, {{firstName}} {{lastName}}!-->
     </div>
   </template>
 
   <script>
     Polymer({
       is: 'page-demo',
+      ready: function () {
+        console.log(this.$.fullName);
+        this.$.fullName.addEventListener('changed', function () {
+          console.log('foo');
+        });
+      },
       properties: {
         firstName: String,
         lastName: String
