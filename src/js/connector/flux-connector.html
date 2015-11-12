@@ -1,0 +1,37 @@
+<!--
+  This seems to be a useful reference
+
+  https://github.com/GoogleWebComponents/firebase-element
+-->
+
+<dom-module id="flux-connector">
+  <script>
+    Polymer({
+      is: 'flux-connector',
+      ready: function () {
+        var self = this;
+
+        var ticks = 0;
+        var interval = setInterval(function () {
+          self.set('data.firstName', self.get('data').firstName + '1');
+          if (++ticks >= 10) {
+            clearInterval(interval);
+          }
+        }, 500);
+      },
+      properties: {
+        data: {
+          type: Object,
+          notify: true,
+          readOnly: true,
+          value: function () {
+            return {
+              firstName: 'Cody',
+              lastName: 'Jenkins'
+            };
+          }
+        }
+      }
+    });
+  </script>
+</dom-module>

@@ -1,31 +1,21 @@
 <link rel="import" href="/src/js/component/name-input.html">
+<link rel="import" href="/src/js/connector/flux-connector.html">
 
 <dom-module id="page-demo">
   <template>
-    <name-input
-      id="fullName"
-      first-name="[[firstName]]"
-      last-name="[[lastName]]"
-    ></name-input>
-
     <div>
-      <!--Hello, {{firstName}} {{lastName}}!-->
+      <flux-connector data="{{name}}"></flux-connector>
+      <name-input
+        id="fullName"
+        first-name="[[name.firstName]]"
+        last-name="[[name.lastName]]"
+      ></name-input>
     </div>
   </template>
 
   <script>
     Polymer({
-      is: 'page-demo',
-      ready: function () {
-        console.log(this.$.fullName);
-        this.$.fullName.addEventListener('changed', function () {
-          console.log('foo');
-        });
-      },
-      properties: {
-        firstName: String,
-        lastName: String
-      }
+      is: 'page-demo'
     });
   </script>
 </dom-module>
