@@ -2,6 +2,7 @@
   "name": "polymer-redux",
   "dependencies": {
     "polymer": "Polymer/polymer#^1.2.0",
-    "paper-input": "PolymerElements/paper-input#~1.0.18"
+    "paper-input": "PolymerElements/paper-input#~1.0.18",
+    "redux": "https://cdnjs.cloudflare.com/ajax/libs/redux/1.0.1/redux.js"
   }
 }
