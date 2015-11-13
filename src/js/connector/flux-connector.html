@@ -6,31 +6,93 @@
 
 <dom-module id="flux-connector">
   <script>
+    window.updateFlux = function (path, value) {
+      _.set(window.fluxState, path, value);
+      setTimeout(function () {
+        window.emitChange();
+      }, 1);
+    };
+
+    window.emitChange = function () {
+      window.dispatchEvent(new Event('flux'));
+    };
+
+    window.fluxState = {
+      firstName: 'Charles',
+      lastName: 'Blaxland'
+    };
+
     Polymer({
       is: 'flux-connector',
-      ready: function () {
-        var self = this;
 
-        var ticks = 0;
-        var interval = setInterval(function () {
-          self.set('data.firstName', self.get('data').firstName + '1');
-          if (++ticks >= 10) {
-            clearInterval(interval);
-          }
-        }, 500);
-      },
       properties: {
         data: {
           type: Object,
           notify: true,
-          readOnly: true,
           value: function () {
-            return {
-              firstName: 'Cody',
-              lastName: 'Jenkins'
-            };
+            return {};
           }
         }
+      },
+
+      observers: [
+        '_dataChanged(data.*)'
+      ],
+
+      created: function () {
+        this._receivingLocalChanges = false;
+        this._receivingFluxData = false;
+      },
+
+      ready: function () {
+        this._connectToFlux();
+      },
+
+      /// - Local data ---------------------------------------------------------
+
+      _dataChanged: function (change) {
+         if (this._receivingFluxData || this._receivingLocalChanges) {
+           return;
+         }
+
+        this._localDataChanged(change);
+      },
+
+      _localDataChanged: function (change) {
+        var pathParts = change.path.split('.');
+        var path;
+
+        // Only apply the change if I'm not updating myself
+        this._receivingLocalChanges = true;
+        if (pathParts.length > 1) {
+          pathParts.shift();
+          path = pathParts.join('.');
+          this._triggerFluxChange(path, change.base[path]);
+        }
+        this._receivingLocalChanges = false;
+      },
+
+      /// - Flux data ----------------------------------------------------------
+
+      _connectToFlux: function () {
+        var self = this;
+        self._fetchFluxState();
+        window.addEventListener('flux', function (e) {
+          self._fetchFluxState();
+        });
+      },
+
+      _fetchFluxState: function () {
+        var data = window.fluxState;
+        this._receivingFluxData = true;
+        _.each(data, function (value, key) {
+          this.set(['data', key], value);
+        }, this);
+        this._receivingFluxData = false;
+      },
+
+      _triggerFluxChange: function (path, value) {
+        window.updateFlux(path, value);
       }
     });
   </script>
